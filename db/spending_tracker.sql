@@ -3,17 +3,18 @@ DROP TABLE IF EXISTS transactions;
 DROP TABLE IF EXISTS merchants;
 
 CREATE TABLE merchants(
-  id SERIAL,
+  id SERIAL PRIMARY KEY,
   name VARCHAR(255)
 );
 
 CREATE TABLE transactions(
-  id SERIAL,
-  cost INT
+  id SERIAL PRIMARY KEY,
+  cost INT,
+  name VARCHAR(255)
 );
 
 CREATE TABLE tags(
-  id SERIAL,
+  id SERIAL PRIMARY KEY,
   name VARCHAR(255)
 );
 
