@@ -1,4 +1,6 @@
 require_relative('../db/sql_runner')
+require_relative('./transaction')
+require_relative('./tag')
 
 class Merchant
   attr_accessor :name, :location
@@ -25,7 +27,7 @@ class Merchant
   def self.all()
     sql = "SELECT * FROM merchants"
     merchants = SqlRunner.run(sql)
-    return merchants.map { |merchant| Transaction.new(merchant) }
+    return merchants.map { |merchant| Merchant.new(merchant) }
   end
 
   def self.find_by_id(id)

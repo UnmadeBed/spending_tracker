@@ -2,8 +2,6 @@ DROP TABLE transactions;
 DROP TABLE merchants;
 DROP TABLE tags;
 
-
-
 CREATE TABLE merchants(
   id SERIAL PRIMARY KEY,
   name VARCHAR(255),
