@@ -15,10 +15,31 @@ class Tag
   end
 
   def save()
-      sql = "INSERT INTO tags (name)
-      VALUES($1) RETURNING id"
-      values = [@name]
-      @id = SqlRunner.run(sql, values)[0]['id'].to_i
-    end
+    sql = "INSERT INTO tags (name)
+    VALUES($1) RETURNING id"
+    values = [@name]
+    @id = SqlRunner.run(sql, values)[0]['id'].to_i
+  end
+
+  def self.all()
+    sql = "SELECT * FROM tags"
+    tags = SqlRunner.run(sql)
+    return tags.map { |tag| Tag.new(tag) }
+  end
+
+  def self.find_by_id(id)
+    sql = "SELECT * FROM tags WHERE id = $1"
+    values = [id]
+    tags = SqlRunner.run(sql, values)[0]
+    return Tag.new(tag)
+  end
+
+  def self.delete(id)
+    sql = "DELETE FROM tags WHERE id = $1"
+    values = [id]
+    SqlRunner.run(sql, values)
+  end
+
+
 
 end

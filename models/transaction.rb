@@ -19,7 +19,7 @@ class Transaction
     SqlRunner.run(sql)
   end
 
-  #save a new transaction to the tracker.
+  #does this work?
   def save()
     sql = "INSERT INTO transactions (amount, merchant_id, tag_id)
     VALUES ($1, $2, $3)
@@ -28,13 +28,26 @@ class Transaction
     @id = SqlRunner.run(sql, values)[0]['id'].to_i
   end
 
-  #   def Transaction.all()
-  #     db = PG.connect({ dbname: 'spending_tracker', host:'localhost'})
-  #     sql = "SELECT * FROM transactions"
-  #     db.prepare("all", sql)
-  #     purchases = db.exec_prepared("all")
-  #     db.close()
-  #     return purchases.map {|purchase| Transaction.new(purchase)}
-  #   end
-  #
+  #does this work?
+  def self.all()
+    sql = "SELECT * FROM transactions"
+    transactions = SqlRunner.run(sql)
+    return transactions.map { |transaction| Transaction.new(transaction) }
   end
+
+  #does this work?
+  def self.find_by_id(id)
+    sql = "SELECT * FROM transactions WHERE id = $1"
+    values = [id]
+    transaction = SqlRunner.run(sql, values)[0]
+    return Transaction.new(transaction)
+  end
+
+  def self.delete(id)
+    sql = "DELETE FROM transactions WHERE id = $1"
+    values = [id]
+    SqlRunner.run(sql, values)
+  end
+
+
+end
